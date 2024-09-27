@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block title %} Home {% endblock %}
+{% block page_title %} Home {% endblock %}
+
+{% block content %}
+
+
+<section class="content">
+  <div class="container-fluid">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+
+      <!-- ./col -->
+      <div class="col-lg-3 col-6">
+        <!-- small box -->
+        <div class="small-box bg-warning">
+          <div class="inner">
+            <h3>{{ count.task }}</h3>
+            <p>Task</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-person-add"></i>
+          </div>
+          <a href="{% url 'task' %}" class="small-box-footer">Batafsil <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <!-- ./col -->
+    </div>
+    <!-- /.row -->
+    <!-- Main row -->
+
+    <!-- /.row (main row) -->
+  </div><!-- /.container-fluid -->
+</section>
+
+
+{% endblock %}
+
+
+

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Sign-Up Form</title>
+    <link rel="stylesheet" href="{% static 'auth.css' %}">
+</head>
+<body>
+<section>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+
+    <div class="sign-up">
+        <div class="content">
+            <h2>Sign Up</h2>
+            <h3 style="color: red">{{ error }}</h3>
+            <form method="post" class="form">
+                {% csrf_token %}
+                <div class="inputBox">
+                    <input type="text" name="username" required>
+                    <i>username</i>
+                </div>
+                <div class="inputBox">
+                    <input type="email" name="email" required>
+                    <i>Email</i>
+                </div>
+                <div class="inputBox">
+                    <input type="password" name="password1" required>
+                    <i>Password</i>
+                </div>
+                <div class="inputBox">
+                    <input type="password" name="password2" required>
+                    <i>Confirm Password</i>
+                </div>
+                <div class="links">
+                    <a href="{% url 'login' %}">Already have an account? Login</a>
+                </div>
+                <div class="inputBox">
+                    <input type="submit" value="Sign Up">
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+</body>
+</html>

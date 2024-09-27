@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+
+{% block title %} Users {% endblock %}
+{% block page_title %} Foydalanuvchilar {% endblock  %}
+{% block pagetitle %} Users {% endblock  %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Users</h3>
+              <a href="{% url 'users-add' ut=ut status='add' %}" class="btn btn-info float-right">Add</a>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>№</th>
+                  <th>Username</th>
+                  <th>Email</th>
+                  <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                    <tr>
+                      <td>{{ user.id }}</td>
+                      <td>{{ user.username }}
+                          {% if request.user == user %}
+                          <sup class="badge badge-warning">Bu siz</sup>
+                          {% endif %}
+                      </td>
+                      <td>{{ user.username }}</td>
+                      <td>{{ user.email }}</td>
+                      <td>
+                          <a href="{% url 'users-edit' ut=1 status='form' pk=user.id %}" class="btn btn-info m-2" >
+                              <i class="fas fa-pen"></i>
+                          </a>
+                          <a  class="btn btn-info" type="button" data-toggle="modal" data-target="#modal-sm-{{ user.id }}">
+                              <i class="fas fa-key"></i>
+                          </a>
+                      </td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+        {% if status == 'form' or status == 'add' %}
+        <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Tezkor Forma</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <form method="post" class="form-group col-md-12" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-item">
+                        {% bootstrap_field form.username %}
+                    </div>
+                    <div class="form-group">
+                        {% bootstrap_field form.email %}
+                    </div>
+                    {% if status == 'add' %}
+                    <div class="form-group">
+                        {% bootstrap_field form.user_type %}
+                    </div>
+                    <div class="form-group">
+                        {% bootstrap_field form.password %}
+                    </div>
+                    {% else %}
+                        <div class="form-group" hidden>
+                            {% bootstrap_field form.user_type %}
+                        </div>
+                        <div class="form-group" hidden>
+                            {% bootstrap_field form.password %}
+                        </div>
+                    {% endif %}
+                    <button type="submit" class="btn btn-success"> Saqlash</button>
+                    <a href="{% url 'users' ut=ut %}" class="btn btn-secondary"> Bekor qilish</a>
+
+                </form>
+
+
+            </div>
+
+
+
+            <!-- /.card-body -->
+          </div>
+          {% endif %}
+
+
+    </div>
+</div>
+
+
+    <div class="modal fade" id="modal-sm-{{ user.id }}">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Change Password</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+          <form action="{% url 'users-chp' user_id=user.id %}" method="post" class="modal-footer justify-content-between">
+             {% csrf_token %}
+              <div class="modal-body">
+                <p>Yangi Parolni kiriting</p>
+                  <input type="text" name="password" placeholder="Parolni kiriting">
+              </div>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Bekor qilish</button>
+            <button type="submit" class="btn btn-primary">Saqlash</button>
+          </form>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+{% endblock %}
+
+
+
