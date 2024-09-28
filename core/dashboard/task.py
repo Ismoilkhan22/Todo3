@@ -37,8 +37,13 @@ def manage_task(request, pk=None, delete=0, status=None):
             return redirect('task')
     form = TaskForm(request.POST or None, request.FILES or None,   instance=root)
     if form.is_valid():
-        form.save()
+        task = form.save(commit=False)
+        task.user = request.user
+        task.save()
+        print('created')
         return redirect('task')
+    else:
+        print(form.errors)
     roots = Task.objects.all().filter(user=user).order_by('-pk')
     paginator = Paginator(roots, 15)
     page = request.GET.get('page', 1)
