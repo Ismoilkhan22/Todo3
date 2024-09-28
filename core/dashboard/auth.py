@@ -1,7 +1,9 @@
 import datetime
 import uuid
+from contextlib import closing
 
 from django.contrib.auth.decorators import login_required
+from django.db import connection
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from methodism import generate_key
@@ -26,6 +28,57 @@ def sign_in(request):
         login(request, user)
         return redirect('home')
     return render(request, 'auth/login.html')
+
+
+# def sign_up(request):
+#     if request.POST:
+#         password = request.POST.get("pass")
+#         repassword = request.POST.get("re-pass")
+#         username = request.POST.get('username')
+#         email = request.POST.get('email')
+#         # user check
+#         # user_sql = f"""
+#         #     select id from core_user
+#         #     where email = '{email}' or username = '{username}'
+#         # """
+#         # with closing(connection.cursor()) as cursor:
+#         #     cursor.execute(user_sql)
+#         #     user = cursor.fetchone()
+#         #     print(user)
+#         user = User.objects.get(username=username)
+#         if user:
+#             return render(request, 'auth/regis.html', {'error': 'Ushbu username yoki email alaqachon mavjud'})
+
+#         if password != repassword:
+#             return render(request, 'auth/regis.html', {'error': 'parol mos kelmadi'})
+
+#         return redirect('login')
+
+from django.shortcuts import render, redirect
+from core.models.auth import User
+
+
+def sign_up(request):
+    if request.method == "POST":
+        password = request.POST.get("pass")
+        repassword = request.POST.get("re-pass")
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+
+        # Check if user with the same username or email already exists
+        if User.objects.filter(username=username).exists() or User.objects.filter(email=email).exists():
+            return render(request, 'auth/regis.html', {'error': 'Ushbu username yoki email alaqachon mavjud'})
+
+        if password != repassword:
+            return render(request, 'auth/regis.html', {'error': 'Parollar mos kelmadi'})
+
+        # Create and save new user
+        user = User.objects.create_user(username=username, email=email, password=password)
+        user.save()
+
+        return redirect('login')
+
+    return render(request, 'auth/register.html')
 
 
 @login_required(login_url='login')
@@ -74,4 +127,3 @@ def user_profile(request, user_id):
         "user": user
     }
     return render(request, 'pages/user-profile.html', ctx)
-

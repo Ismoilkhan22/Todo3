@@ -1,6 +1,6 @@
 from django.urls import path
 
-from core.dashboard.auth import sign_in, sign_out, user_profile, manage_user, change_password
+from core.dashboard.auth import sign_in, sign_out, sign_up, user_profile, manage_user, change_password
 
 from core.dashboard.task import manage_task, task_filter
 from core.dashboard.view import index
@@ -10,6 +10,7 @@ urlpatterns = [
     path('', index, name="home"),
     path('login/', sign_in, name="login"),
     path('logout/', sign_out, name="logout"),
+    path('regis/', sign_up, name='regis'),
     path('user-profile/<int:user_id>/', user_profile, name="user-profile"),
 
     # users
@@ -24,6 +25,5 @@ urlpatterns = [
     path("task/edit/<status>/<int:pk>/", manage_task, name="task-edit"),
     path("task/del/<int:delete>/<int:pk>/", manage_task, name="task-del"),
     path("task/filter/<key>/<int:pk>/", task_filter, name="task-filter"),
-
 
 ]

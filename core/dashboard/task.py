@@ -26,19 +26,20 @@ def task_filter(request, key, pk):
     return render(request, 'pages/user_home.html', ctx)
 
 
-@permission_check
+@login_required(login_url='login')
 def manage_task(request, pk=None, delete=0, status=None):
     root = None
+    user = request.user
     if pk:
-        root = Task.objects.filter(pk=pk).first()
+        root = Task.objects.filter(pk=pk, user=user).first()
         if delete:
             root.delete()
             return redirect('task')
-    form = TaskForm(request.POST or None, request.FILES or None, instance=root)
+    form = TaskForm(request.POST or None, request.FILES or None,   instance=root)
     if form.is_valid():
         form.save()
         return redirect('task')
-    roots = Task.objects.all().order_by('-pk')
+    roots = Task.objects.all().filter(user=user).order_by('-pk')
     paginator = Paginator(roots, 15)
     page = request.GET.get('page', 1)
     result = paginator.get_page(page)

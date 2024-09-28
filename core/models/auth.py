@@ -39,11 +39,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     user_type = models.SmallIntegerField(choices=[
-        (1, "user"),
-        (2, "blok user"),
-    ], default=1)
+        (1, "admin"),
+        (2, "user"),
+    ], default=2)
 
     objects = UserMG()
 
-    REQUIRED_FIELDS = ['email',]
+    REQUIRED_FIELDS = ['email', 'user_type']
     USERNAME_FIELD = 'username'

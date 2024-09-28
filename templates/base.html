@@ -172,12 +172,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
 
-         {% if request.user.user_type == 1 %}-->
-           {% include 'sidebar/admin.html' %}-->
-         {% endif  %}-->
+
+         {% if request.user.user_type == 1 %}
+           {% include 'sidebar/admin.html' %}
+          {% else %}
+          {% include 'sidebar/user.html' %}
+         {% endif  %}
 
 
           <li class="nav-item">
@@ -222,12 +223,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
-          {% if request.user.user_type == 1 %}
-            {% block content %}{% endblock %}
-          {% else  %}
-            {% block user %}{% endblock %}
-          {% endif  %}
-        <!-- /.row -->
+
+            {% block content %}
+        {% endblock %}
+
+
       </div><!-- /.container-fluid -->
     </div>
     {% endif %}

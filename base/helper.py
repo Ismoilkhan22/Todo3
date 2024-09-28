@@ -23,10 +23,10 @@ def permission_check(funk):
     return wrapper
 
 
-def counter():
-    sql = '''
+def counter(id):
+    sql = f'''
     select 
-    ( select COUNT(*) from core_task) as task,
+    ( select COUNT(*) from core_task WHERE user_id={id} ) as task,
     (select COUNT(*) from core_user us WHERE us.user_type=1) as admin,
     (select COUNT(*) from core_user us WHERE us.user_type=2) as costumer
     from core_user

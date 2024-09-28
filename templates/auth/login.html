@@ -280,15 +280,14 @@
             {% csrf_token %}
           <div class="inputBox">
             <input type="text" name="username" required>
-            <i>Phone</i>
+            <i>Username</i>
           </div>
           <div class="inputBox">
             <input type="password" name="pass" required>
             <i>Password</i>
           </div>
           <div class="links">
-            <a>Forgot Password</a>
-            <a>Not Signup</a>
+           <a href="{% url 'regis' %}"> Sign Up </a>
           </div>
           <div class="inputBox">
             <input type="submit" value="Login">
