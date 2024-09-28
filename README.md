@@ -1,4 +1,8 @@
 # Tasks
+In this project called Todo3, you can save the tasks you need and set the running status. I used django-jazzmin for the admin panel.
+I used the dashboard as a template for the frontend.
+I plan to add some more functionality in the next version.
+I have left the instructions for use below.
 1. open termenal or cmd 
 2. clone repostore   ```git clone https://github.com/Ismoilkhan22/Todo3```
 3. enter the project ```cd Todo3```
